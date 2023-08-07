@@ -21,8 +21,16 @@ export default class Order {
     return this._customerId;
   }
 
+  set customerId(value: string) {
+    this._customerId = value;
+  }
+
   get items(): OrderItem[] {
     return this._items;
+  }
+
+  set items(items: OrderItem[]) {
+    this._items = items;
   }
 
   validate(): boolean {
