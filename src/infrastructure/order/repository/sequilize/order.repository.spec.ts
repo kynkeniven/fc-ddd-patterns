@@ -125,26 +125,24 @@ describe("Order repository test", () => {
           id: orderItem.id,
           name: orderItem.name,
           price: orderItem.price,
-          quantity: orderItem.quantity,
+          quantity: 2,
           order_id: "123",
           product_id: "123",
         },
       ],
     });
     
-    orderItem.quantity = 5;//PORQUE MESMO ATUALIZANDO A QUANTIDADE, O FIND NÃO RETORNA O VALOR 5?? NÃO CONSEGUI FAZER ESSA LOGICA, TANTO QUE NA LINHA 158 EU MANTIVE A QTDE `2`
+    orderItem.quantity = 5;
     order.items = [orderItem];
     order.customerId = "2";
     await orderRepository.update(order);
 
     
-
     const orderModel2 = await OrderModel.findOne({
       where: { id: order.id },
       include: ["items"],
     });
 
-    const test = await orderRepository.find("123");
 
     expect(orderModel2.toJSON()).toStrictEqual({
       id: "123",
@@ -155,7 +153,7 @@ describe("Order repository test", () => {
           id: orderItem.id,
           name: orderItem.name,
           price: orderItem.price,
-          quantity: 2,
+          quantity: 5,
           order_id: "123",
           product_id: "123",
         },
